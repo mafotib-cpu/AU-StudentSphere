@@ -60,7 +60,7 @@ Use two browser windows side by side (one normal, one private) so you can switch
 | Feature | Where | Notes |
 |---|---|---|
 | **Premium plan, $3.00 / month** | Student → Premium; Admin → Premium subscriptions | Price in `src/premium.js` (`PREMIUM_PRICE_CENTS=300`). Free: 2 active share links, 3 applications per 30 days. Premium: unlimited links and applications, plus Premium library guides. Cancel any time (keeps access until the paid period ends). |
-| **Payments** | `PAYMENT_MODE` | `manual` (default): the student pays the accounts office or by EcoCash and enters the reference; an administrator confirms it under *Premium subscriptions* and Premium starts. Set `PAYMENT_INSTRUCTIONS` to the text students see (account or EcoCash details). `PAYMENT_MODE=demo` activates instantly with no payment, for demonstrations. No card gateway is connected. |
+| **Payments** | `PAYMENT_MODE` | `demo` (default): activates instantly, no money moves (good for the defence). `manual`: student enters a payment reference, an administrator confirms it under *Premium subscriptions*. No card gateway is connected. |
 | **Resource library** | Everyone → Resource library | Staff add guides or links; can mark them Premium. Premium guides show locked for free students. |
 | **Messaging** | Students, lecturers, verifiers → Messages | Student starts a conversation with a lecturer/verifier; staff reply; notifications; 40 messages/day limit. |
 | **Apply to opportunities** | Opportunities → Apply here; Student → My applications | Posters see applicants, set Shortlisted / Accepted / Declined with a note; the student is notified. |
