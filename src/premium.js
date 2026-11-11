@@ -6,8 +6,9 @@ const H = require('./helpers');
 const PRICE_CENTS = Number(process.env.PREMIUM_PRICE_CENTS) || 300;
 const CURRENCY = 'USD';
 const PERIOD_DAYS = 30;
-// PAYMENT_MODE: 'demo' (default) activates instantly with no money moving; 'manual' records the student's payment reference and an administrator confirms it.
-const MODE = process.env.PAYMENT_MODE === 'manual' ? 'manual' : 'demo';
+// PAYMENT_MODE: 'manual' (default) records the student's payment reference and an administrator confirms it. Set PAYMENT_MODE=demo to activate instantly with no payment (for demonstrations).
+const MODE = process.env.PAYMENT_MODE === 'demo' ? 'demo' : 'manual';
+const INSTRUCTIONS = process.env.PAYMENT_INSTRUCTIONS || 'Pay the amount to the university accounts office or by EcoCash, and keep your receipt or transaction number.';
 const FREE_LIMITS = { activeLinks: 2, applicationsPer30Days: 3 };
 
 const currentSub = (userId) => db.prepare("SELECT * FROM subscriptions WHERE user_id=? AND status IN ('active','cancelled') AND current_period_end > ? ORDER BY current_period_end DESC LIMIT 1").get(userId, H.now());
@@ -15,7 +16,7 @@ const isPremium = (userId) => !!currentSub(userId);
 const money = (c) => `$${(c / 100).toFixed(2)}`;
 
 function status(user) {
-  const s = currentSub(user.id);
+  const s = currentSub(user.id); 
   const activeLinks = db.prepare("SELECT COUNT(*) c FROM shares WHERE student_id=? AND kind='link' AND revoked_at IS NULL AND expires_at > ?").get(user.id, H.now()).c;
   const since = new Date(Date.now() - 30 * 86400000).toISOString();
   const apps = db.prepare('SELECT COUNT(*) c FROM applications WHERE student_id=? AND created_at > ?').get(user.id, since).c;
@@ -25,7 +26,7 @@ function status(user) {
     cancelled: s ? !!s.cancel_at_period_end : false,
     limits: FREE_LIMITS, usage: { activeLinks, applications: apps },
     payments: db.prepare('SELECT amount_cents, currency, provider, reference, status, at FROM payments WHERE user_id=? ORDER BY id DESC LIMIT 12').all(user.id),
-    mode: MODE,
+    mode: MODE, instructions: INSTRUCTIONS, instructions: INSTRUCTIONS,
     pending: db.prepare("SELECT reference, at FROM payments WHERE user_id=? AND status='pending' ORDER BY id DESC LIMIT 1").get(user.id) || null,
   };
 }
