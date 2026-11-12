@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 const { db } = require('../src/db');
 const H = require('../src/helpers');
 const P = require('../src/premium');
