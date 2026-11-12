@@ -18,12 +18,12 @@ export async function premium() {
       <div class="row wrap mt" style="gap:10px">${d.cancelled ? '' : h`<button class="btn" data-act="premium-cancel">Cancel renewal</button>`}<button class="btn red" data-act="premium-subscribe">${d.mode === 'demo' ? 'Add another month' : 'Pay for another month'}</button></div>`;
   } else if (d.mode === 'manual') {
     action = d.pending ? h`<div class="callout amber">${icon('clock')}<div><b>Waiting for confirmation</b><div class="small">Payment reference ${d.pending.reference} was sent on ${fmtDate(d.pending.at)}. Premium starts when an administrator confirms it.</div></div></div>`
-      : h`<form data-form="premium-manual" novalidate><p class="small muted">Pay ${d.price} to the university accounts office, then enter the payment reference below. An administrator confirms it and Premium starts.</p>
+      : h`<form data-form="premium-manual" novalidate><p class="small muted">Pay ${d.price}. ${d.instructions} Enter the reference below. An administrator confirms it and Premium starts.</p>
         <div class="field mt-s" data-field="reference"><label class="l" for="p-r">Payment reference</label><input class="input" id="p-r" name="reference" maxlength="60" placeholder="e.g. receipt or transaction number"></div>
         <button class="btn red block" type="submit">Submit payment for confirmation</button></form>`;
   } else {
     action = h`<button class="btn red block" data-act="premium-subscribe">${icon('star')} Get Premium for ${d.price}/month</button>
-      <p class="small muted mt-s">Demo mode: this activates instantly and no money is charged. Set PAYMENT_MODE=manual for real payments confirmed by an administrator.</p>`;
+      <p class="small muted mt-s">Demonstration: no payment is taken.</p>`;
   }
   return h`<div class="pagehead"><div><div class="eyebrow">Plans</div><h1 class="page">AU StudentSphere Premium</h1><p class="lede">More room to share and apply, plus the full resource library. ${d.price} per month, cancel any time.</p></div></div>
     <div class="grid split"><div class="card"><h2>Free vs Premium</h2>
