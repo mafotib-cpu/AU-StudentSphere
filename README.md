@@ -14,8 +14,11 @@ Requires **Node.js 22.13+** (uses the built-in SQLite — nothing else to instal
 
 First start creates `data/` and seeds demo data. `npm run reseed` wipes it and starts fresh.
 Works fully offline (fonts and icons are bundled), so it is safe for a live defence with unreliable internet.
- or open au-studentsphere-w2zx.onrender.com on net
+## Live Website
 
+Access the AU StudentSphere application online:
+
+https://au-studentsphere-w2zx.onrender.com
 
 ## If it will not open
 Run `START-HERE.bat` (Windows) or `./start.sh` (Mac/Linux) - it installs packages on first run, starts the server and opens the browser. Or manually: `npm install` once, then `npm start`, then open http://localhost:3000.
